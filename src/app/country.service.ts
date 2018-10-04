@@ -8,7 +8,8 @@ import { Country } from './country';
 import { State } from './state';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*', 'Authorization':'authkey',
+  'userid':'1' })
 };
 
 @Injectable({
@@ -32,7 +33,11 @@ export class CountryService {
         catchError(this.handleError('getCountries', [])));
   }
   addCountry(name: string, code: string, id: number): Observable<Country> {
-    return this.http.post<Country>(this.countriesUrl, new Country(id, code, name) , httpOptions)
+    let country = new Country(id, code, name);
+    console.log(country);
+    console.log(this.countriesUrl);
+    console.log(httpOptions);
+    return this.http.post<Country>(this.countriesUrl, country, httpOptions)
       .pipe(
         catchError(this.handleError<Country>('addCountry')));
   }
