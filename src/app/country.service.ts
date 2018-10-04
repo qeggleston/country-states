@@ -8,8 +8,7 @@ import { Country } from './country';
 import { State } from './state';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*', 'Authorization':'authkey',
-  'userid':'1' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 @Injectable({
@@ -27,13 +26,16 @@ export class CountryService {
       .pipe(
         catchError(this.handleError('getCountries', [])));
   }
-  getStates(code): Observable<State[]> {
-    return this.http.get<State[]>(`${this.countriesUrl}${code}/states/`)
+  getStates(country: string): Observable<State[]> {
+    return this.http.get<State[]>(`${this.countriesUrl}${country}/states/`)
       .pipe(
         catchError(this.handleError('getCountries', [])));
   }
-  addCountry(name: string, code: string, id: number): Observable<Country> {
-    let country = new Country(id, code, name);
+  addCountry(countryName: string, countryCode: string): Observable<Country> {
+    let country = {
+      code: countryCode, 
+      name: countryName
+    }
     console.log(country);
     console.log(this.countriesUrl);
     console.log(httpOptions);
@@ -41,8 +43,13 @@ export class CountryService {
       .pipe(
         catchError(this.handleError<Country>('addCountry')));
   }
-  addState(stateName: string, stateCode: string, countryCode: string, id: number) {
-    return this.http.post<State>(`${this.countriesUrl}${countryCode}/states/`, new Country(id, stateCode, name), httpOptions).pipe(
+  addState(stateName: string, stateCode: string, countryId: number, countryCode: string) {
+    let state = {
+      code: stateCode, 
+      name: stateName,
+      countryId: countryId,
+    }
+    return this.http.post<State>(`${this.countriesUrl}${countryCode}/states/`, state, httpOptions).pipe(
       catchError(this.handleError<State>('addState')));
     
   }
