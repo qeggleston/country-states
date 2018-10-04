@@ -1,19 +1,35 @@
-<select (change)="onSelect($event.target.value)">
-  <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
-</select>
-<br>
-<select>
-  <option *ngFor="let state of states" value="{{state.code}}">{{state.name}}</option>
-</select>
-<br>
-<label>
-  Country Name:
-  <input #countryName />
-</label>
-<label>
-    Country Code:
-    <input #countryCode />
+<div>
+  <select (change)="getStates($event.target.value)">
+    <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
+  </select>
+  <select>
+    <option *ngFor="let state of states" value="{{state.code}}">{{state.name}}</option>
+  </select>
+  <br>
+</div>
+<div>
+  <label>
+    Country Name:
+    <input #countryName />
   </label>
-<button (click)="addCountry(countryName.value, countryCode.value);">
+  <label>
+      Country Code:
+      <input #countryCode />
+    </label>
+  <button (click)="addCountry(countryName.value, countryCode.value);">
+      add
+  </button>
+</div>
+<div>
+  <label>
+    State Name:
+    <input #stateName />
+  </label>
+  <label>
+    State Code:
+    <input #stateCode />
+  </label>
+  <button (click)="addState(stateName.value, stateCode.value, selectedCode);">
     add
-</button>
+  </button>
+</div>

@@ -36,6 +36,11 @@ export class CountryService {
       .pipe(
         catchError(this.handleError<Country>('addCountry')));
   }
+  addState(stateName: string, stateCode: string, countryCode: string, id: number) {
+    return this.http.post<State>(`${this.countriesUrl}${countryCode}/states/`, new Country(id, stateCode, name), httpOptions).pipe(
+      catchError(this.handleError<State>('addState')));
+    
+  }
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);  
