@@ -19,6 +19,7 @@ export class CountriesComponent implements OnInit {
   
   updateCountry(selected: Country): void {
     this.selectedCountry = selected;
+    console.log(selected);
   }
 
   getCountries(): void {
@@ -45,13 +46,10 @@ export class CountriesComponent implements OnInit {
   }
 
   addState(stateName: string, stateCode: string): void {
-    stateName = stateName.trim();
-    console.log("adding a state!");
-    if(!name) {
-      console.log("no name.");
+    console.log(this.selectedCountry);
+    if(!stateName) {
       return;
     }
-    console.log("adding a state (actually)!");
     this.countryService.addState(stateName, stateCode, this.selectedCountry.id, this.selectedCountry.code).subscribe(() => {
       this.getStates(this.selectedCountry.code);
     });
@@ -60,6 +58,11 @@ export class CountriesComponent implements OnInit {
   //when a new country is selected from the dropdown, update the states dropdown
   getStates(code: string) {
     this.countryService.getStates(code).subscribe(states => this.states = states);
+    for(let x = 0; x < this.countries.length; x++) {
+      if(code === this.countries[x].code) {
+        this.selectedCountry = this.countries[x];
+      }    
+    }
     
   }
 

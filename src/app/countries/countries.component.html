@@ -4,7 +4,7 @@
 </div>
 <div class="dropdown">
   Country:
-  <select (change)="getStates($event.target.value); updateCountry(country)">
+  <select (change)="getStates($event.target.value);">
     <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
   </select>
   <br>
@@ -36,11 +36,11 @@
   </label>
   <br>
   <label>
-    State Code:
-    <input #stateCode />
-  </label>
-  <br>
+      State Code:
+      <input #stateCode />
+    </label>
+    <br>
   <button (click)="addState(stateName.value, stateCode.value);">
-    Add State 
+      Add State
   </button>
 </div>
