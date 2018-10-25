@@ -16,7 +16,7 @@ const httpOptions = {
 })
 export class CountryService {
 
-  private countriesUrl = "https://xc-ajax-demo.herokuapp.com/api/countries/";
+  private countriesUrl = "http://localhost:8000/countries/";
 
   constructor( 
     private http: HttpClient,
@@ -47,7 +47,7 @@ export class CountryService {
     let state = {
       code: stateCode, 
       name: stateName,
-      countryId: countryId,
+      country: countryId,
     }
     return this.http.post<State>(`${this.countriesUrl}${countryCode}/states/`, state, httpOptions).pipe(
       catchError(this.handleError<State>('addState')));
