@@ -43,11 +43,11 @@ export class CountryService {
       .pipe(
         catchError(this.handleError<Country>('addCountry')));
   }
-  addState(stateName: string, stateCode: string, countryId: number, countryCode: string) {
+  addState(stateName: string, stateCode: string, countryCode: string) {
     let state = {
       code: stateCode, 
       name: stateName,
-      country: countryId,
+      //country: countryId,
     }
     return this.http.post<State>(`${this.countriesUrl}${countryCode}/states/`, state, httpOptions).pipe(
       catchError(this.handleError<State>('addState')));

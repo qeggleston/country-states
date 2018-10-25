@@ -50,7 +50,7 @@ export class CountriesComponent implements OnInit {
     if(!stateName) {
       return;
     }
-    this.countryService.addState(stateName, stateCode, this.selectedCountry.id, this.selectedCountry.code).subscribe(() => {
+    this.countryService.addState(stateName, stateCode, this.selectedCountry.code).subscribe(() => {
       this.getStates(this.selectedCountry.code);
     });
   }
