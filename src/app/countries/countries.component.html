@@ -1,46 +1,17 @@
-
 <div>
   <h1>Country-States Selector</h1>
 </div>
 <div class="dropdown">
   Country:
-  <select (change)="getStates($event.target.value);">
-    <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
-  </select>
+  <app-dropdown [choices]="countries" (selectEvent)="updateCountry($event)"></app-dropdown>
   <br>
   State:
-  <select>
-    <option *ngFor="let state of states" value="{{state.code}}">{{state.name}}</option>
-  </select>
-  <br>
+  <app-dropdown [choices]="states"></app-dropdown>
 </div>
 <div>
-  <label>
-    Country Name:
-    <input #countryName />
-  </label>
-  <br>
-  <label>
-      Country Code:
-      <input #countryCode />
-    </label>
-    <br>
-  <button (click)="addCountry(countryName.value, countryCode.value);">
-      Add Country
-  </button>
+  <p style="text-align:left;">Add Country:</p>
+  <app-form (buttonEvent)="addCountry($event.name, $event.code)"></app-form>
+  <p style="text-align:left;">Add State:</p>
+  <app-form (buttonEvent)="addState($event.name, $event.code)"></app-form>
 </div>
-<div>
-  <label>
-    State Name:
-    <input #stateName />
-  </label>
-  <br>
-  <label>
-      State Code:
-      <input #stateCode />
-    </label>
-    <br>
-  <button (click)="addState(stateName.value, stateCode.value);">
-      Add State
-  </button>
-</div>
+

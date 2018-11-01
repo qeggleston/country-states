@@ -14,11 +14,12 @@ export class CountriesComponent implements OnInit {
   //hold currently selected country and state objects
   countries: Country[];
   states: State[];
-  selectedCountry: Country;
+  selectedCountry: string;
   constructor(private countryService: CountryService) { }
   
-  updateCountry(selected: Country): void {
+  updateCountry(selected: string): void {
     this.selectedCountry = selected;
+    this.getStates(selected);
     console.log(selected);
   }
 
@@ -33,7 +34,7 @@ export class CountriesComponent implements OnInit {
     this.countryService.getCountries().subscribe(countries => {
       this.countries = countries;
       this.getStates(this.countries[0].code);
-      this.selectedCountry = this.countries[0];
+      this.selectedCountry = this.countries[0].code;
      });
   }
   
@@ -50,8 +51,8 @@ export class CountriesComponent implements OnInit {
     if(!stateName) {
       return;
     }
-    this.countryService.addState(stateName, stateCode, this.selectedCountry.code).subscribe(() => {
-      this.getStates(this.selectedCountry.code);
+    this.countryService.addState(stateName, stateCode, this.selectedCountry).subscribe(() => {
+      this.getStates(this.selectedCountry);
     });
   }
   
@@ -60,7 +61,7 @@ export class CountriesComponent implements OnInit {
     this.countryService.getStates(code).subscribe(states => this.states = states);
     for(let x = 0; x < this.countries.length; x++) {
       if(code === this.countries[x].code) {
-        this.selectedCountry = this.countries[x];
+        this.selectedCountry = this.countries[x].code;
       }    
     }
     

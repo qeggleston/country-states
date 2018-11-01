@@ -1,0 +1,3 @@
+<select (change)="getNewSelection($event.target.value);">
+  <option *ngFor="let choice of choices" value="{{choice.code}}">{{choice.name}}</option>
+</select>

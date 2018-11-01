@@ -1,0 +1,15 @@
+<div>
+  <label>
+    Name:
+    <input #name />
+  </label>
+  <br>
+  <label>
+    Code:
+    <input #code />
+  </label>
+    <br>
+  <button (click)="getNewSubmission(name.value, code.value);">
+      Add:
+  </button>
+</div>
